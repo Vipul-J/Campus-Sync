@@ -1,20 +1,41 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
 
-export default function App() {
+import RoleSelect from './src/Admin/AdminScreens/RoleSelect';
+import FacultyMain from './src/Faculty/FacultyMain';
+import StudMain from './src/Students/StudMain';
+
+// Add these lines for YourScreen and RoleSelectionScreen
+import Splash from './src/Admin/Splash';
+
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Splash" component={Splash} />
+        <Stack.Screen name="RoleSelection" component={RoleSelect} />
+        <Stack.Screen name="MainApp" component={MainApp} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const MainApp = ({ route }) => {
+  const { screen } = route.params || { screen: 'Faculty' };
+
+  if (screen === 'Faculty') {
+    return <FacultyMain />;
+  } else if (screen === 'StudMain') {
+    return <StudMain />;
+  }
+
+  return null;
+};
+
+export default App;
