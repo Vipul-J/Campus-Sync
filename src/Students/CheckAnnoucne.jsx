@@ -1,66 +1,106 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Linking } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import { Card, List } from 'react-native-paper';
 import axios from 'axios';
 
 const CheckAnnoucne = () => {
-  const [formData, setFormData] = useState([]);
+  const [submissions, setSubmissions] = useState([]);
 
   useEffect(() => {
-    // Fetch data from the backend when the component mounts
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://192.168.10.34:3001/api/getAllFormData');
-        setFormData(response.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
     fetchData();
-  }, []); // Empty dependency array ensures the effect runs only once on mount
+  }, []);
 
-  const convertUint8ArrayToBase64 = (uint8Array) => {
-    let binary = '';
-    uint8Array.forEach((byte) => {
-      binary += String.fromCharCode(byte);
-    });
-    return btoa(binary);
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('http://192.168.10.34:3001/api/submissions');
+      setSubmissions(response.data);
+    } catch (error) {
+      console.error('Error fetching data', error);
+    }
   };
 
   return (
-    <View>
-      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Display Data</Text>
-      {formData.length === 0 ? (
-        <Text>No data available.</Text>
+    <ScrollView style={styles.container}>
+      <Text style={styles.header}>Recent Announcements</Text>
+      {submissions.length === 0 ? (
+        <Text>No submissions available</Text>
       ) : (
-        <ScrollView>
-          {formData.map((item) => (
-            <View key={item._id} style={{ marginVertical: 10 }}>
-              <Text>
-                <Text style={{ fontWeight: 'bold' }}>Faculty Name:</Text> {item.facultyName}{"\n"}
-                <Text style={{ fontWeight: 'bold' }}>Subject:</Text> {item.subject}{"\n"}
-                <Text style={{ fontWeight: 'bold' }}>Description:</Text> {item.description}
-              </Text>
-
-              {/* Convert Uint8Array to base64 string */}
-              {console.log('PDF Content:', item.pdf)}
-              <TouchableOpacity
-                onPress={() => {
-                  const base64Data = convertUint8ArrayToBase64(new Uint8Array(item.pdf.data));
-                  const pdfUri = `data:application/pdf;base64,${base64Data}`;
-                  Linking.openURL(pdfUri);
-                }}
-                style={{ marginTop: 10, padding: 10, backgroundColor: '#3e4095', borderRadius: 5 }}
-              >
-                <Text style={{ color: 'white' }}>Open PDF</Text>
-              </TouchableOpacity>
-              {/* You may display other information or customize this as needed */}
-            </View>
+        <List.Section>
+          {submissions.map((item) => (
+            <Card key={item._id} style={styles.card}>
+              <Card.Content>
+                <View style={styles.postHeader}>
+                  <Image
+                    source={{ uri: 'https://png.pngtree.com/png-vector/20220708/ourmid/pngtree-graduation-academic-cap-free-png-education-vector-clipart-png-image_5791037.png' }} // Placeholder image URL
+                    style={styles.avatar}
+                  />
+                  <View>
+                    <Text style={styles.facultyName}>{item.facultyName}</Text>
+                    <Text style={styles.subject}>{item.subject}</Text>
+                  </View>
+                </View>
+                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.description}>{item.description}</Text>
+              </Card.Content>
+            </Card>
           ))}
-        </ScrollView>
+        </List.Section>
       )}
-    </View>
+            <Text style={{margin: 14}}></Text>
+
+    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#f0f0f0',
+    padding: 20, 
+    marginTop: 32 // Background color for the entire screen
+},
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+    color: '#3e4095', // React Native Paper primary color
+  },
+  card: {
+    marginBottom: 16,
+    elevation: 4,
+    borderRadius: 12,
+  },
+  postHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 8,
+  },
+  facultyName: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    color: '#333',
+  },
+  subject: {
+    fontSize: 14,
+    color: '#777',
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    color: '#333',
+  },
+  description: {
+    fontSize: 16,
+    color: '#555',
+  },
+});
 
 export default CheckAnnoucne;

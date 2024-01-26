@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
     marginTop: 32,
+    color: '#3e4095',
   },
   formContainer: {
     marginBottom: 20,

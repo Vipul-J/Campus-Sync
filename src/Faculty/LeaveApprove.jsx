@@ -33,19 +33,21 @@ const LeaveApprove = () => {
     <ScrollView
       style={{
         flex: 1,
-        backgroundColor: theme.colors.background,
         padding: 16,
+        backgroundColor: '#f0f0f0',
+        padding: 20, 
+        marginTop: 32 
       }}
     >
-      <Title style={{ marginBottom: 16, fontSize: 24 }}>Leave Applications</Title>
+      <Title style={{ marginBottom: 16, fontSize: 24, fontWeight: 'bold' }}>Leave Applications</Title>
       {leaveApplications.map((leave) => (
         <Card key={leave._id} style={{ marginBottom: 16 }}>
           <Card.Content>
-            <Title>{leave.subject}</Title>
-            <Paragraph>{leave.description}</Paragraph>
-            <Paragraph>{`From Date: ${leave.fromDate}`}</Paragraph>
-            <Paragraph>{`To Date: ${leave.toDate}`}</Paragraph>
-            <Paragraph>{`Status: ${leave.status}`}</Paragraph>
+            <Paragraph><Paragraph style={{fontWeight: 'bold'}}>Subject :</Paragraph>{leave.subject}</Paragraph>
+            <Paragraph><Paragraph style={{fontWeight: 'bold'}}>Description :</Paragraph>{leave.description}</Paragraph>
+            <Paragraph><Paragraph style={{fontWeight: 'bold'}}>From :</Paragraph>{` ${leave.fromDate}`}</Paragraph>
+            <Paragraph><Paragraph style={{fontWeight: 'bold'}}>To :</Paragraph>{` ${leave.toDate}`}</Paragraph>
+            <Paragraph><Paragraph style={{fontWeight: 'bold'}}>Status :</Paragraph>{`${leave.status}`}</Paragraph>
           </Card.Content>
           <Card.Actions style={{ justifyContent: 'flex-end' }}>
             <Button
@@ -58,6 +60,7 @@ const LeaveApprove = () => {
           </Card.Actions>
         </Card>
       ))}
+      <Text style={{margin: 14}}></Text>
     </ScrollView>
   );
 };

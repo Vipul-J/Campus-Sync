@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, View, StyleSheet } from 'react-native';
 import { Text, TextInput, Button, useTheme } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
@@ -77,14 +77,13 @@ const LeaveApply = ({ navigation }) => {
 
   return (
     <ScrollView
-      style={{
-        flex: 1,
-        backgroundColor: theme.colors.background,
-        padding: 16,
-      }}
+    style={styles.container}
     >
-      <Text style={{ fontSize: 20, marginBottom: 16 }}>Apply for Leave</Text>
-
+      <Text style={{ fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10, 
+    color: '#3e4095',}}>Apply for Leave</Text>
+    
       <TextInput
         label="Student Registration Number"
         value={studentRegNum}
@@ -150,8 +149,20 @@ const LeaveApply = ({ navigation }) => {
       )}
 
       <StudentLeaveDetails studentRegNum={studentRegNum} />
+      <Text style={{margin: 14}}></Text>
+
     </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: '#f0f0f0',
+    padding: 20, 
+    marginTop: 32 // Background color for the entire screen
+},
+});
 
 export default LeaveApply;
