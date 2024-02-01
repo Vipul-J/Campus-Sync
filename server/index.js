@@ -8,15 +8,12 @@ const xlsx = require('xlsx');
 const app = express();
 const PORT = 3001;
 
-// Enable CORS
 app.use(cors());
 app.use(express.json());
 
-// Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/attendanceAdmin', {
+ mongoose.connect('mongodb://localhost:27017/attendanceAdmin', {
   useUnifiedTopology: true,
 });
-
 
 const Student = mongoose.model('Student', {
   name: String,
@@ -32,25 +29,21 @@ const Leave = mongoose.model('Leave', {
   description: String,
   fromDate: Date,
   toDate: Date,
-  status: String, // 'pending', 'approved', 'rejected'
+  status: String, 
 });
 
 const Announcement = mongoose.model('Announcement', {
   facultyName: String,
   subject: String,
   description: String,
-  pdf: Buffer, // Store the file buffer
+  pdf: Buffer, 
 });
-
-
 
 app.use(bodyParser.json());
 
-// Set up multer for handling file uploads
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// Endpoint to save student data from Excel sheet
 app.post('/api/saveStudents', upload.single('file'), async (req, res) => {
   try {
     if (!req.file) {
@@ -110,7 +103,6 @@ app.get('/api/getSavedStudents', async (req, res) => {
   }
 });
 
-// Add this to your Express.js server (index.js)
 app.post('/api/markAttendance', async (req, res) => {
   try {
     const { selectedClass, selectedSubject, selectedTimings, attendanceData, selectedProfessor } = req.body;
@@ -140,7 +132,6 @@ app.post('/api/markAttendance', async (req, res) => {
   }
 });
 
-// Add this to your Express.js server (index.js)
 app.get('/api/getStudentByRegNumber/:regNumber', async (req, res) => {
   try {
     const student = await Student.findOne({ regNo: req.params.regNumber });
@@ -156,7 +147,6 @@ app.get('/api/getStudentByRegNumber/:regNumber', async (req, res) => {
   }
 });
 
- // Endpoint to save announcements
  app.post('/api/saveAnnouncement', upload.single('pdf'), async (req, res) => {
   console.log('Received FormData:', req.body);
   console.log('Received File:', req.file);
@@ -186,7 +176,6 @@ app.get('/api/getStudentByRegNumber/:regNumber', async (req, res) => {
   }
 });
 
-// Endpoint to get all announcements
 app.get('/api/getAllAnnouncements', async (req, res) => {
   try {
     const allAnnouncements = await Announcement.find();
@@ -197,9 +186,7 @@ app.get('/api/getAllAnnouncements', async (req, res) => {
   }
 });
  
-// =========
 
-// Endpoint to handle leave application submission
 app.post('/api/applyLeave', async (req, res) => {
   try {
     const { studentRegNum, studentName, subject, description, fromDate, toDate } = req.body;
@@ -223,8 +210,6 @@ app.post('/api/applyLeave', async (req, res) => {
   }
 });
 
-
-// Endpoint to get leave applications for a specific student
 app.get('/api/getLeaveApplications/:studentRegNum', async (req, res) => {
   try {
     const { studentRegNum } = req.params;
@@ -246,7 +231,6 @@ app.get('/api/getLeaveApplications/:studentRegNum', async (req, res) => {
 });
 
 
-// Endpoint to handle leave application approval/rejection
 app.put('/api/processLeaveApplication/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -270,6 +254,67 @@ app.get('/api/getLeaveApplications', async (req, res) => {
 });
 
 
+
+const submissionSchema = new mongoose.Schema({
+  facultyName: String,
+  subject: String,
+  title: String,
+  description: String,
+});
+
+const Submission = mongoose.model('Submission', submissionSchema);
+
+app.use(bodyParser.json());
+
+app.post('/api/submissions', async (req, res) => {
+  try {
+    const { facultyName, subject, title, description } = req.body;
+
+    const newSubmission = new Submission({
+      facultyName,
+      subject,
+      title,
+      description,
+    });
+
+    await newSubmission.save();
+
+    res.status(201).json({ message: 'Submission saved successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/submissions', async (req, res) => {
+  try {
+    const submissions = await Submission.find();
+    res.json(submissions);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+const chatSchema = new mongoose.Schema({
+  user: String,
+  message: String,
+});
+
+const Chat = mongoose.model('Chat', chatSchema);
+
+app.get('/api/chat', async (req, res) => {
+  const messages = await Chat.find();
+  res.json(messages);
+});
+
+app.post('/api/chat', async (req, res) => {
+  const { user, message } = req.body;
+  const newMessage = new Chat({ user, message });
+  await newMessage.save();
+  res.json(newMessage);
+});
+
+
  app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
