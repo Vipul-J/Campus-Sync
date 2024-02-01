@@ -27,7 +27,7 @@ const MarkAttend = () => {
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const response = await axios.get(`http://192.168.10.34:3001/api/getStudentsByClass/${selectedClass}`);
+                const response = await axios.get(`http://192.168.115.252:3001/api/getStudentsByClass/${selectedClass}`);
                 setStudents(response.data);
             } catch (error) {
                 console.error('Error fetching student data:', error);
@@ -51,7 +51,7 @@ const MarkAttend = () => {
                     {
                         text: 'OK',
                         onPress: async () => {
-                            await axios.post('http://192.168.10.34:3001/api/markAttendance', {
+                            await axios.post('http://192.168.115.252:3001/api/markAttendance', {
                                 selectedClass,
                                 selectedSubject,
                                 selectedTimings,
@@ -213,38 +213,38 @@ const styles = StyleSheet.create({
         padding: 16,
         backgroundColor: '#f0f0f0',
         padding: 20, 
-        marginTop: 32 // Background color for the entire screen
+        marginTop: 32 , 
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 16,
-        color: '#333', // Text color
+        color: '#333', 
     },
     picker: {
         marginBottom: 16,
-        backgroundColor: '#ffffff', // Background color for pickers
+        backgroundColor: '#ffffff',  
     },
     datePicker: {
         marginBottom: 16,
         paddingVertical: 8,
-        backgroundColor: '#ffffff', // Background color for date picker
+        backgroundColor: '#ffffff',  
     },
     button: {
         marginBottom: 16,
-        backgroundColor: '#3e4095', // Button background color
+        backgroundColor: '#3e4095',  
     },
     studentList: {
         marginTop: 16,
-        backgroundColor: '#ffffff', // Background color for student list
-        borderRadius: 8, // Border radius for student list
+        backgroundColor: '#ffffff',  
+        borderRadius: 8,  
         padding: 16,
     },
     listTitle: {
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 8,
-        color: '#333', // Text color
+        color: '#333',  
     },
     studentItem: {
         flexDirection: 'row',
@@ -255,11 +255,11 @@ const styles = StyleSheet.create({
     noDataText: {
         fontSize: 16,
         fontStyle: 'italic',
-        color: '#777', // Text color for no data
+        color: '#777',  
     },
     shadow: {
         elevation: 5,
-        shadowColor: '#000', // Shadow color
+        shadowColor: '#000',  
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 4,
@@ -271,19 +271,19 @@ const styles = StyleSheet.create({
         backgroundColor: '#e0e0e0',
         paddingVertical: 8,
         marginBottom: 8,
-        borderRadius: 8, // Border radius for table header
+        borderRadius: 8,  
     },
     headerText: {
         fontWeight: 'bold',
         flex: 1,
         textAlign: 'center',
-        color: '#333', // Text color for header
+        color: '#333',  
     },
     cellText: {
         flex: 1,
         textAlign: 'left',
         margin: 5,
-        color: '#333', // Text color for cells
+        color: '#333', 
     },
     checkboxContainer: {
         flexDirection: 'row',
@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
     checkboxText: {
         marginLeft: 4,
         fontSize: 14,
-        color: '#333', // Text color for checkbox label
+        color: '#333', 
     },
     bottomSpace: {
         marginTop: 12,

@@ -6,8 +6,8 @@ import { Ionicons } from '@expo/vector-icons'; // Import Ionicons from Expo's ve
 
 import MakeAnnouncements from './MakeAnnouncements'; 
 import MarkAttend from './MarkAttend';
-import MarkInternal from './MarkInternal';
 import LeaveApprove from './LeaveApprove';
+import FacultyChat from './FacultyChat';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,8 +15,8 @@ const FacultyMain = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeTintColor: '#3e4095', // Set the active tab icon color
-        inactiveTintColor: 'gray', // Set the inactive tab icon color
+        activeTintColor: '#3e4095',  
+        inactiveTintColor: 'gray',  
       }}
     >
       <Tab.Screen
@@ -42,12 +42,12 @@ const FacultyMain = () => {
         }}
       />
       <Tab.Screen
-        name="IAMarks"
-        component={MarkInternal}
+        name="FacultyChat"
+        component={FacultyChat}
         options={{
-          tabBarLabel: 'IA Marks',
+          tabBarLabel: 'Community',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="ios-analytics" size={size} color={color} />
+            <Ionicons name="ios-people" size={size} color={color} />
           ),
           headerShown: false,
         }}

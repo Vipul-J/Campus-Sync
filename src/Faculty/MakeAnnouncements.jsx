@@ -18,8 +18,7 @@ const MakeAnnouncements = () => {
 
   const handleSubmit = async () => {
     try {
-      await axios.post('http://192.168.10.34:3001/api/submissions', formData);
-      // Optionally, you can reset the form fields here
+      await axios.post('http://192.168.115.252:3001/api/submissions', formData);
       setFormData({
         facultyName: '',
         subject: '',
@@ -46,8 +45,8 @@ const MakeAnnouncements = () => {
         style={styles.picker}
       >
         <Picker.Item label="Select Professor" value="Select Professor" />
-        <Picker.Item label="Prof. Suni Vernekar" value="Prof. Suni Vernekar" />
-        <Picker.Item label="Prof. Suni Vernekar" value="Prof. Suni Vernekar" />
+        <Picker.Item label="Prof. Sunil Vernekar" value="Prof. Suni Vernekar" />
+        <Picker.Item label="Prof. Vishwanath Patil" value="Prof. Vishwanath Patil" />
         <Picker.Item label="Prof. Akhila Khoday" value="Prof. Akhila Khoday" />
         <Picker.Item label="Prof. Hema Chikaraddi" value="Prof. Hemahikaraddidi" />
       </Picker>
@@ -93,25 +92,24 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#f0f0f0',
     padding: 20,
-    marginTop: 32 // Background color for the entire screen
+    marginTop: 32,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
-    color: '#333', // Text color
+    color: '#333', 
   },
   picker: {
     marginBottom: 16,
-    backgroundColor: '#ffffff', // Background color for pickers
+    backgroundColor: '#ffffff', 
   },
   input: {
      marginTop: 8,
   },
   button: {
      marginTop: 16,
-    backgroundColor: '#3e4095', // Button background color
-
+    backgroundColor: '#3e4095', 
   },
 });
 

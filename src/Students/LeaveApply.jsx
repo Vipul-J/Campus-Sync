@@ -41,7 +41,7 @@ const LeaveApply = ({ navigation }) => {
 
   const handleApplyLeave = async () => {
     try {
-      const response = await axios.post('http://192.168.10.34:3001/api/applyLeave', {
+      const response = await axios.post('http://192.168.115.252:3001/api/applyLeave', {
         studentRegNum,
         studentName,
         studentEmail,
@@ -61,14 +61,11 @@ const LeaveApply = ({ navigation }) => {
         setLeaveStatus(status);
         setLeaveDetails(details);
 
-        // Update your UI or navigate to another screen based on the leave status
-        if (status === 'approved') {
+         if (status === 'approved') {
           console.log('Leave is approved!');
-          // Update the UI or navigate to another screen
-        } else {
+         } else {
           console.log('Leave is pending or rejected.');
-          // Update the UI or navigate to another screen
-        }
+         }
       }
     } catch (error) {
       console.error('Error applying leave:', error);
@@ -161,7 +158,7 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#f0f0f0',
     padding: 20, 
-    marginTop: 32 // Background color for the entire screen
+    marginTop: 32  
 },
 });
 

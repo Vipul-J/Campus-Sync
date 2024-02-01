@@ -2,12 +2,12 @@
 
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons'; // Import Ionicons from Expo's vector icons
+import { Ionicons } from '@expo/vector-icons';  
  
 import CheckAnnoucne from './CheckAnnoucne';
 import CheckAttend from './CheckAttend';
-import CheckInternal from './CheckInternal';
-import LeaveApply from './LeaveApply';
+ import LeaveApply from './LeaveApply';
+import StudChat from './StudChat';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,8 +15,8 @@ const StudMain = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeTintColor: '#3e4095', // Set the active tab icon color
-        inactiveTintColor: 'gray', // Set the inactive tab icon color
+        activeTintColor: '#3e4095', 
+        inactiveTintColor: 'gray',  
       }}
     >
       <Tab.Screen
@@ -43,11 +43,11 @@ const StudMain = () => {
       />
       <Tab.Screen
         name="CheckIAMarks"
-        component={CheckInternal}
+        component={StudChat}
         options={{
-          tabBarLabel: 'Check IA Marks',
+          tabBarLabel: 'Cmommunity',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="ios-analytics" size={size} color={color} />
+            <Ionicons name="ios-people" size={size} color={color} />
           ),
           headerShown: false,
         }}

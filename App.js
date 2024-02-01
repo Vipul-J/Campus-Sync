@@ -2,14 +2,11 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
-
+import { Ionicons } from '@expo/vector-icons'; 
 import RoleSelect from './src/Admin/AdminScreens/RoleSelect';
 import FacultyMain from './src/Faculty/FacultyMain';
-import StudMain from './src/Students/StudMain';
-
-// Add these lines for YourScreen and RoleSelectionScreen
-import Splash from './src/Admin/Splash';
+import StudMain from './src/Students/StudMain'; 
+ import Splash from './src/Admin/Splash';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();

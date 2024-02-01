@@ -12,7 +12,7 @@ const CheckAnnoucne = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://192.168.10.34:3001/api/submissions');
+      const response = await axios.get('http://192.168.115.252:3001/api/submissions');
       setSubmissions(response.data);
     } catch (error) {
       console.error('Error fetching data', error);
@@ -58,13 +58,13 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#f0f0f0',
     padding: 20, 
-    marginTop: 32 // Background color for the entire screen
+    marginTop: 32  
 },
   header: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 16,
-    color: '#3e4095', // React Native Paper primary color
+    color: '#3e4095', 
   },
   card: {
     marginBottom: 16,

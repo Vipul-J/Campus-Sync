@@ -10,7 +10,7 @@ const StudentLeaveDetails = ({ studentRegNum }) => {
   useEffect(() => {
     const fetchLeaveApplications = async () => {
       try {
-        const response = await axios.get(`http://192.168.10.34:3001/api/getLeaveApplications/${studentRegNum}`);
+        const response = await axios.get(`http://192.168.115.252:3001/api/getLeaveApplications/${studentRegNum}`);
         setLeaveApplications(response.data.leaveApplications);
       } catch (error) {
         console.error('Error fetching leave applications:', error);

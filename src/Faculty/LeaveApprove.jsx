@@ -9,7 +9,7 @@ const LeaveApprove = () => {
 
   const fetchLeaveApplications = async () => {
     try {
-      const response = await axios.get('http://192.168.10.34:3001/api/getLeaveApplications');
+      const response = await axios.get('http://192.168.115.252:3001/api/getLeaveApplications');
       setLeaveApplications(response.data.leaveApplications);
     } catch (error) {
       console.error('Error fetching leave applications:', error);
@@ -22,7 +22,7 @@ const LeaveApprove = () => {
 
   const handleProcessLeave = async (id, status) => {
     try {
-      await axios.put(`http://192.168.10.34:3001/api/processLeaveApplication/${id}`, { status });
+      await axios.put(`http://192.168.115.252:3001/api/processLeaveApplication/${id}`, { status });
       fetchLeaveApplications();
     } catch (error) {
       console.error('Error processing leave application:', error);
@@ -51,12 +51,12 @@ const LeaveApprove = () => {
           </Card.Content>
           <Card.Actions style={{ justifyContent: 'flex-end' }}>
             <Button
-              onPress={() => handleProcessLeave(leave._id, 'approved')}
+              onPress={() => handleProcessLeave(leave._id, 'APPROVED')}
               style={{ marginRight: 8 }}
             >
               Approve
             </Button>
-            <Button onPress={() => handleProcessLeave(leave._id, 'rejected')}>Reject</Button>
+            <Button onPress={() => handleProcessLeave(leave._id, 'REJECTED')}>Reject</Button>
           </Card.Actions>
         </Card>
       ))}

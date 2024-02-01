@@ -10,7 +10,7 @@ const CheckAttend = () => {
 
   const handleRegNumberSubmit = async () => {
     try {
-      const response = await axios.get(`http://192.168.10.34:3001/api/getStudentByRegNumber/${regNumber}`, {
+      const response = await axios.get(`http://192.168.115.252:3001/api/getStudentByRegNumber/${regNumber}`, {
         timeout: 5000,
       });
       setStudentData(response.data);
@@ -139,7 +139,7 @@ const CheckAttend = () => {
 
 const styles = StyleSheet.create({
   highlightedText: {
-    color: 'blue', // Change the color to your preferred highlight color
+    color: 'blue',  
     fontWeight: 'bold',
   },
   scrollContainer: {
